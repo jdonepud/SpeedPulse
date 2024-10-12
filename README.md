@@ -1,16 +1,22 @@
-# myapp
+# SpeedPulse
 
-A new Flutter project.
+SpeedPulse is a cross-platform mobile app that offers real-time internet speed assessments. It features a sleek user interface, persistent notifications, and supports both mobile data and Wi-Fi connections.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter application.
+- **Real-time speed test**: Displays download speed in a circular gauge.
+- **Persistent notification**: Shows speed test progress in the notification panel.
+- **Clean and simple UI**: Provides a user-friendly interface inspired by Fast.com.
+- **Cross-platform**: Available for both Android and iOS.
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Project Structure
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+speedpulse/
+ ├── android/                  # Android specific configurations
+ ├── ios/                      # iOS specific configurations
+ ├── lib/                      # Main app code
+ │   ├── main.dart             # Entry point of the app
+ ├── assets/                   # Icons and images
+ └── pubspec.yaml              # Project dependencies and metadata
