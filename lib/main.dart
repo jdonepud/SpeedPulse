@@ -1,49 +1,63 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:async';
 
-void main() => runApp(const SpeedTestApp());
+void main() => runApp(const SpeedPulseApp());
 
-class SpeedTestApp extends StatefulWidget {
-  const SpeedTestApp({super.key});
+class SpeedPulseApp extends StatefulWidget {
+  const SpeedPulseApp({super.key});
 
   @override
   // ignore: library_private_types_in_public_api
-  _SpeedTestAppState createState() => _SpeedTestAppState();
+  _SpeedPulseAppState createState() => _SpeedPulseAppState();
 }
 
-class _SpeedTestAppState extends State<SpeedTestApp> {
+class _SpeedPulseAppState extends State<SpeedPulseApp> {
+  // Notification setup
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+      FlutterLocalNotificationsPlugin();
+
   double _downloadSpeed = 0;
-  String _statusMessage = "";
+  Timer? _timer;
 
-  Future<void> _testDownloadSpeed() async {
-    const url =
-        'http://speedtest.tele2.net/10MB.zip'; // Use a real test file URL
-    final stopwatch = Stopwatch()..start();
+  @override
+  void initState() {
+    super.initState();
+    _initializeNotifications(); // Initialize notifications when the app starts
+  }
 
-    try {
-      final response = await http.get(Uri.parse(url));
-      stopwatch.stop();
+  // Initialize the notification plugin
+  void _initializeNotifications() {
+    var initializationSettingsAndroid =
+        const AndroidInitializationSettings('app_icon');
+    var initializationSettings =
+        InitializationSettings(android: initializationSettingsAndroid);
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
 
-      if (response.statusCode == 200) {
-        final bytes = response.contentLength ?? 0;
-        final seconds = stopwatch.elapsedMilliseconds / 1000;
+  // Show a persistent notification with the current speed
 
-        setState(() {
-          _downloadSpeed = (bytes * 8) / (seconds * 1000 * 1000); // Mbps
-          _statusMessage = 'Speed test successful!';
-        });
-      } else {
-        setState(() {
-          _statusMessage =
-              'Failed to download file. Status code: ${response.statusCode}';
-        });
-      }
-    } catch (e) {
+  // Simulate a speed test for UI purposes (replace this with actual speed test logic)
+  void _startSpeedTest() {
+    _downloadSpeed = 0;
+    _timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
-        _statusMessage = 'Error downloading file: $e';
+        _downloadSpeed += 2; // Increment speed
+        if (_downloadSpeed >= 100) {
+          _timer?.cancel();
+        }
       });
-    }
+
+      // Update notification with the current speed
+      _showNotification(_downloadSpeed);
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
   }
 
   @override
@@ -51,28 +65,47 @@ class _SpeedTestAppState extends State<SpeedTestApp> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Speed Test'),
+          title: const Text('SpeedPulse'),
         ),
         body: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton(
-                onPressed: _testDownloadSpeed,
-                child: const Text('Run Speed Test'),
-              ),
-              if (_downloadSpeed > 0)
-                Text(
-                    'Download Speed: ${_downloadSpeed.toStringAsFixed(2)} Mbps'),
-              if (_statusMessage.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(_statusMessage),
+              CircularPercentIndicator(
+                radius: 200.0,
+                lineWidth: 13.0,
+                animation: true,
+                percent: _downloadSpeed / 100,
+                center: Text(
+                  "${_downloadSpeed.toStringAsFixed(1)} Mbps",
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20.0),
                 ),
+                footer: const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Text(
+                    "Testing Download Speed",
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 17.0),
+                  ),
+                ),
+                circularStrokeCap: CircularStrokeCap.round,
+                progressColor: Colors.blueAccent,
+                backgroundColor: Colors.grey[200]!,
+              ),
+              const SizedBox(height: 50),
+              ElevatedButton(
+                onPressed: _startSpeedTest,
+                child: const Text("Start Speed Test"),
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class _showNotification {
+  _showNotification(Object speed);
 }

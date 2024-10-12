@@ -1,5 +1,5 @@
-name: myapp
-description: "A speedTesting project."
+name: speedpulse
+description: "A speed testing project with a circular speedometer and persistent notification."
 publish_to: 'none'
 
 version: 1.0.0+1
@@ -11,14 +11,21 @@ dependencies:
   flutter:
     sdk: flutter
 
-  http: ^0.13.5  # Add this line for the http package
-
-  # Add the speed test package for measuring internet speed
-  speed_test: ^2.0.0
+  # For making HTTP requests to test internet speed
+  http: ^0.13.5
 
   # Use connectivity_plus to check for network type (Wi-Fi or mobile data)
-  connectivity_plus: ^4.0.2  # Only listed once
+  connectivity_plus: ^4.0.2
 
+  # For circular speedometer and progress indicator
+  percent_indicator: ^4.2.2  # For circular progress bar UI like fast.com
+
+  # For displaying persistent notifications on Android
+  flutter_local_notifications: ^9.0.0
+
+  # Add the speed test package for measuring internet speed (if this package is available and compatible)
+  speed_test: ^2.0.0
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -27,3 +34,7 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  # Assets can be added here (if needed, e.g., icons, images)
+  # assets:
+  #   - assets/images/
