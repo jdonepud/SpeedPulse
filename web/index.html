@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A speed test application built with Flutter.">
+  
+  <!-- Mobile Optimization -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="SpeedPulse">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Open Graph Meta Tags for Social Sharing -->
+  <meta property="og:title" content="SpeedPulse">
+  <meta property="og:description" content="Test your internet speed quickly with SpeedPulse.">
+  <meta property="og:image" content="icons/Icon-192.png">
+  <meta property="og:url" content="https://yourdomain.com">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="SpeedPulse">
+  <meta name="twitter:description" content="Test your internet speed quickly with SpeedPulse.">
+  <meta name="twitter:image" content="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/webp" href="favicon.webp">
+
+  <title>SpeedPulse</title>
+  <link rel="manifest" href="manifest.json">
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    var serviceWorkerVersion = null;
+  </script>
+
+  <!-- Preload Key Resources -->
+  <link rel="preload" href="flutter.js" as="script">
+
+  <!-- This script adds the Flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
+</head>
+<body>
+  <script>
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>

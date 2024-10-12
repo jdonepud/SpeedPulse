@@ -1,0 +1,29 @@
+name: myapp
+description: "A speedTesting project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  http: ^0.13.5  # Add this line for the http package
+
+  # Add the speed test package for measuring internet speed
+  speed_test: ^2.0.0
+
+  # Use connectivity_plus to check for network type (Wi-Fi or mobile data)
+  connectivity_plus: ^4.0.2  # Only listed once
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
